@@ -1,0 +1,35 @@
+#-------------------------
+# Database PostgresSQL
+#-------------------------
+
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+spring.datasource.url=jdbc:postgresql://localhost:5432/social_network
+#-------------------------
+# ORM settings
+#-------------------------
+
+spring.jpa.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+spring.jpa.hibernate.ddl-auto=update
+
+spring.jpa.show-sql=true
+
+spring.main.allow-bean-definition-overriding=true
+
+#-------------------------
+# auth0 settings
+#-------------------------
+
+auth0.secret-key=eyJhbGciOiJIUzI1NiJ9eyJzdWIiOiJKb2UifQ1KP0SsvENi7Uz1oQc07aXTL7kpQG5jBNIybqr601234561dds
+
+spring.jackson.serialization.fail-on-empty-beans=false
+
+swagger.enable=true
+
+aws.s3.host-url=
+aws.s3.access-key=
+aws.s3.secret-key=
+aws.s3.bucket=
