@@ -1,8 +1,8 @@
-package com.kpi.job_search.profile;
+package com.kpi.job_search.user_profile;
 
 import java.util.UUID;
 
-import com.kpi.job_search.profile.dto.UserProfileDto;
+import com.kpi.job_search.user_profile.dto.UserProfileDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

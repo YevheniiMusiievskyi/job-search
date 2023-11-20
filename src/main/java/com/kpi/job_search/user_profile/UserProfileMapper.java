@@ -1,7 +1,7 @@
-package com.kpi.job_search.profile;
+package com.kpi.job_search.user_profile;
 
-import com.kpi.job_search.profile.dto.UserProfileDto;
-import com.kpi.job_search.profile.model.UserProfile;
+import com.kpi.job_search.user_profile.dto.UserProfileDto;
+import com.kpi.job_search.user_profile.model.UserProfile;
 import com.kpi.job_search.skills.SkillsMapper;
 import org.mapstruct.Mapper;
 

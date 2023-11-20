@@ -1,4 +1,4 @@
-package com.kpi.job_search.profile.model;
+package com.kpi.job_search.user_profile.model;
 
 import java.util.List;
 import javax.persistence.Entity;
@@ -15,7 +15,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-@Table(schema = "user_profiles")
+@Table(name = "user_profiles")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class UserProfile extends BaseEntity {

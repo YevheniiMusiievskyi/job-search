@@ -1,4 +1,4 @@
-package com.kpi.job_search.profile.dto;
+package com.kpi.job_search.user_profile.dto;
 
 import java.util.List;
 import java.util.UUID;
