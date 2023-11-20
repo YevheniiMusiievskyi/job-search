@@ -10,6 +10,8 @@ import {createBrowserHistory} from 'history';
 
 import {thread} from "./slices/thread";
 import {users} from "./slices/users";
+import {userProfile} from "./slices/userProfile";
+import {skills} from "./slices/skills";
 
 export const history = createBrowserHistory();
 
@@ -28,7 +30,9 @@ const composedEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const reducers = {
     posts: thread.reducer,
-    profile: users.reducer
+    profile: users.reducer,
+    userProfile: userProfile.reducer,
+    skills: skills.reducer
 };
 
 const rootReducer = combineReducers({

@@ -25,14 +25,6 @@ public class Post extends BaseEntity {
     @Column(name = "body", columnDefinition = "TEXT")
     private String body;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "post_skills",
-            joinColumns = {@JoinColumn(name = "post_id")},
-            inverseJoinColumns = {@JoinColumn(name = "skill_id")}
-    )
-    private List<Skill> skills;
-
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "image_id")
     private Image image;

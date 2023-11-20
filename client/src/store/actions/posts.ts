@@ -2,7 +2,6 @@ import {Dispatch} from "redux";
 import {API} from "../../api";
 import {IPost, IPostPostRequest, IPostPutRequest} from "../../models/post";
 import {thread} from "../slices/thread";
-import {act} from "react-dom/test-utils";
 
 const { actions } = thread;
 

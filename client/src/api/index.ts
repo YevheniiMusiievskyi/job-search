@@ -4,6 +4,8 @@ import {posts} from "./posts";
 import {comments} from "./comments";
 import {images} from "./images";
 import {auth} from "./auth";
+import {userProfile} from "./userProfile";
+import {skills} from "./skills";
 
 export const client = axios.create();
 client.defaults.baseURL = "/api";
@@ -11,6 +13,8 @@ client.defaults.baseURL = "/api";
 export const API = {
     auth,
     users,
+    userProfile,
+    skills,
     posts,
     comments,
     images

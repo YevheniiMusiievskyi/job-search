@@ -13,7 +13,6 @@ public class PostDto {
     private UUID id;
     private String title;
     private String body;
-    private List<String> skills;
     private ImageDto image;
     private UserDetailsDto user;
     private Date createdAt;
