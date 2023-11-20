@@ -19,9 +19,6 @@ import java.util.List;
 @Table(name = "posts")
 public class Post extends BaseEntity {
 
-    @Column(nullable = false)
-    private String title;
-
     @Column(name = "body", columnDefinition = "TEXT")
     private String body;
 
