@@ -14,7 +14,7 @@ public class MainController {
 	private boolean swaggerEnable;
 
 	@ApiIgnore
-	@GetMapping("api")
+	@GetMapping
 	public String api() {
 		if (swaggerEnable)
 			return "redirect:/swagger-ui.html";

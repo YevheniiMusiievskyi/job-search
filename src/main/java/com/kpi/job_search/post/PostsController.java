@@ -13,7 +13,7 @@ import java.util.UUID;
 import static com.kpi.job_search.auth.TokenService.getUserId;
 
 @RestController
-@RequestMapping("/api/posts")
+@RequestMapping("/posts")
 @RequiredArgsConstructor
 public class PostsController {
 

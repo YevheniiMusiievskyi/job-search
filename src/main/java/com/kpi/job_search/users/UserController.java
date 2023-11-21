@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import static com.kpi.job_search.auth.TokenService.getUserId;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
 

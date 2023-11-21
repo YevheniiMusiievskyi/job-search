@@ -10,7 +10,7 @@ import java.util.UUID;
 import static com.kpi.job_search.auth.TokenService.getUserId;
 
 @RestController
-@RequestMapping("/api/posts/{id}/reaction")
+@RequestMapping("/posts/{id}/reaction")
 @RequiredArgsConstructor
 public class PostReactionController {
 
