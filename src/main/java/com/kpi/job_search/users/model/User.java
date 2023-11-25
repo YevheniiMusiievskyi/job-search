@@ -1,5 +1,7 @@
 package com.kpi.job_search.users.model;
 
+import java.util.UUID;
+
 import com.kpi.job_search.db.BaseEntity;
 import com.kpi.job_search.image.model.Image;
 import lombok.*;
@@ -9,6 +11,7 @@ import javax.persistence.*;
 @Data
 @EqualsAndHashCode(callSuper=true)
 @Table(name = "users")
+@NoArgsConstructor
 public class User extends BaseEntity {
     @Column(name = "email", unique=true)
     private String email;
@@ -22,4 +25,8 @@ public class User extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "avatar_id")
     private Image avatar;
+
+    public User(UUID id) {
+        super(id);
+    }
 }

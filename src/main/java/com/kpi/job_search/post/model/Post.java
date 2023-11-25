@@ -4,7 +4,6 @@ import com.kpi.job_search.comment.model.Comment;
 import com.kpi.job_search.image.model.Image;
 import com.kpi.job_search.db.BaseEntity;
 import com.kpi.job_search.postReactions.model.PostReaction;
-import com.kpi.job_search.skills.model.Skill;
 import com.kpi.job_search.users.model.User;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;

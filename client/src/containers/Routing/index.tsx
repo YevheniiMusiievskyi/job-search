@@ -51,7 +51,7 @@ const Routing: React.FC<RoutingProps> =
                                     }
                                     component={Thread}
                                 />
-                                <PrivateRoute exact path="/profile" component={Profile}/>
+                                <PrivateRoute exact path="/profile/:userId" component={Profile}/>
                                 <Route path="*" exact component={NotFound}/>
                             </Switch>
                         </main>

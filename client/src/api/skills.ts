@@ -1,10 +1,11 @@
-import axios, {AxiosResponse} from "axios";
+import {AxiosResponse} from "axios";
 
 import {ISkill} from "../models/skills";
+import {client} from "./index";
 
 export const skills = {
     loadAllExistingSkills() {
-        return axios.get(`/user-profile/skills`)
+        return client.get(`/skills`)
             .then((r: AxiosResponse<ISkill[]>) => r.data)
     }
 }

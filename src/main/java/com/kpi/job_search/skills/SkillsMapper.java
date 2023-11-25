@@ -9,6 +9,8 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface SkillsMapper {
 
+    List<Skill> mapDtoToSkills(List<SkillDto> skills);
+
     List<SkillDto> mapSkillsToDto(List<Skill> skills);
 
 }

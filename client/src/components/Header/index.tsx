@@ -35,7 +35,7 @@ const Header: React.FC<IHeaderProps> = ({user, logout}) => {
                     )}
                 </Grid.Column>
                 <Grid.Column textAlign="right">
-                    <NavLink exact activeClassName="active" to="/profile" className={styles.menuBtn}>
+                    <NavLink exact activeClassName="active" to={`/profile/${user?.id}`} className={styles.menuBtn}>
                         <Icon name="user circle" size="large"/>
                     </NavLink>
                     <Button basic icon type="button" className={`${styles.menuBtn} ${styles.logoutBtn}`}

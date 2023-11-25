@@ -7,9 +7,7 @@ import java.util.UUID;
 
 @Data
 public class PostCreationDto {
-    private String title;
     private String body;
-    private List<String> skills;
     private UUID imageId;
     private UUID userId;
 }

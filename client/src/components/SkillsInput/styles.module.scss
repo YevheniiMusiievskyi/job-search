@@ -1,0 +1,35 @@
+@import "../../styles/common.scss";
+
+.tags {
+  margin-bottom: 20px;
+}
+
+.tag {
+  background-color: $main-color;
+  color: $white-color;
+  padding: 5px;
+  margin: 10px;
+  border-radius: $border-radius;
+  //padding: 10px;
+}
+
+.remove-tag {
+  margin: 100px;
+}
+
+.tag button {
+  background: unset;
+  border: none;
+  color: $white-color;
+  margin-left: 3px;
+}
+
+.selected {
+  margin: 10px;
+}
+
+.suggestedTag {
+  background-color: $main-color;
+  color: $white-color;
+  border-radius: $border-radius;
+}

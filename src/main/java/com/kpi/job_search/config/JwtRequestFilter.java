@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import static com.kpi.job_search.config.SecurityConstants.HEADER_STRING;
 
@@ -39,7 +40,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
 
-    // TODO: поправить костыль
+    // TODO: improve code
     private String getToken(HttpServletRequest request) {
         String cookieToken = null;
         Cookie[] cookies = request.getCookies();
@@ -51,10 +52,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             }
         }
 
-        return StringUtils.firstNonBlank(
+        String token = StringUtils.firstNonBlank(
                 request.getHeader(HEADER_STRING),
                 cookieToken
         );
+
+        return Optional.ofNullable(token)
+                .map(t -> t.replace("Bearer ", ""))
+                .orElse(null);
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(String token) {

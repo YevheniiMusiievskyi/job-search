@@ -10,6 +10,7 @@ import java.util.UUID;
 
 @Data
 @MappedSuperclass
+@NoArgsConstructor
 public class BaseEntity {
 
     @Id
@@ -25,4 +26,8 @@ public class BaseEntity {
     @Column(name = "updated_on")
     @UpdateTimestamp
     private Date updatedAt;
+
+    public BaseEntity(UUID id) {
+        this.id = id;
+    }
 }

@@ -18,9 +18,9 @@ public class UserProfileController {
 
     private final UserProfileService userProfileService;
 
-    @GetMapping("/{id}")
-    public UserProfileDto getUserProfile(@PathVariable UUID id) {
-        return userProfileService.getUserProfile(id);
+    @GetMapping("/{userId}")
+    public UserProfileDto getUserProfile(@PathVariable UUID userId) {
+        return userProfileService.getUserProfile(userId);
     }
 
     @PostMapping
