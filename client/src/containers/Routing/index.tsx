@@ -4,7 +4,7 @@ import {connect, ConnectedProps} from 'react-redux';
 import Thread from 'src/containers/Thread';
 import LoginPage from 'src/containers/LoginPage';
 import RegistrationPage from 'src/containers/RegistrationPage';
-import Profile from 'src/containers/Profile';
+import Profile from 'src/containers/UserProfile';
 import Header from 'src/components/Header';
 import Spinner from 'src/components/Spinner';
 import NotFound from 'src/scenes/NotFound';
@@ -12,6 +12,9 @@ import PrivateRoute from 'src/containers/PrivateRoute';
 import PublicRoute from 'src/containers/PublicRoute';
 import {IRootState} from "src/store";
 import {loadCurrentUser, logout} from "../../store/actions/users";
+import Vacancies from "../Vacancies";
+import VacancyCreation from "../VacancyCreation";
+import VacancyDetails from "../VacancyDetails";
 
 const Routing: React.FC<RoutingProps> =
     ({
@@ -52,6 +55,9 @@ const Routing: React.FC<RoutingProps> =
                                     component={Thread}
                                 />
                                 <PrivateRoute exact path="/profile/:userId" component={Profile}/>
+                                <PrivateRoute exact path="/vacancies" component={Vacancies} />
+                                <PrivateRoute exact path="/vacancies/:vacancyId" component={VacancyDetails} />
+                                <PrivateRoute exact path="/vacancy/create" component={VacancyCreation} />
                                 <Route path="*" exact component={NotFound}/>
                             </Switch>
                         </main>

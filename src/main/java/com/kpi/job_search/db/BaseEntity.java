@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Data
+@EqualsAndHashCode(of = "id")
 @MappedSuperclass
 @NoArgsConstructor
 public class BaseEntity {

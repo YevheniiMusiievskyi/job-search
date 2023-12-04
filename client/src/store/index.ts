@@ -12,6 +12,7 @@ import {thread} from "./slices/thread";
 import {users} from "./slices/users";
 import {userProfile} from "./slices/userProfile";
 import {skills} from "./slices/skills";
+import {vacancies} from "./slices/vacancies";
 
 export const history = createBrowserHistory();
 
@@ -32,6 +33,7 @@ const reducers = {
     posts: thread.reducer,
     profile: users.reducer,
     userProfile: userProfile.reducer,
+    vacancies: vacancies.reducer,
     skills: skills.reducer
 };
 

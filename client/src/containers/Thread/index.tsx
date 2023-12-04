@@ -81,7 +81,7 @@ const Thread: React.FC<ThreadProps & RouteComponentProps<UrlParams>> = (
     };
 
     return (
-        <div className={styles.threadContent}>
+        <div>
             {(userId && user?.id === userId || !userId) &&
                 <div className={styles.addPostForm}>
                     <PostInput submit={addPost} uploadImage={images.uploadImage}/>

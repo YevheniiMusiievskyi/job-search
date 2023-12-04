@@ -2,20 +2,15 @@ package com.kpi.job_search.auth.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
+import java.util.Set;
 import java.util.UUID;
 
-import static java.util.Collections.emptyList;
-
 public class AuthUser extends User {
-    public AuthUser(UUID id, String username, String password) {
-        super(username, password, emptyList());
-        this.id = id;
-    }
-
-    public AuthUser(UUID id, String username) {
-        super(username, null, emptyList());
+    public AuthUser(UUID id, String username, String password, Set<? extends GrantedAuthority> authorities) {
+        super(username, password, authorities);
         this.id = id;
     }
 

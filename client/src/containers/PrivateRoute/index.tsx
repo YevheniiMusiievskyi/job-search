@@ -3,6 +3,7 @@ import {Route, Redirect, useLocation} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {IRootState} from "src/store";
+import styles from './styles.module.scss';
 
 const PrivateRoute = ({component: Component, isAuthorized, ...rest}) => {
     const location = useLocation();
@@ -10,7 +11,11 @@ const PrivateRoute = ({component: Component, isAuthorized, ...rest}) => {
     return (
         <Route
             {...rest} render={props => (isAuthorized
-            ? <Component {...props} />
+            ? (
+                <div className={styles.content}>
+                    <Component {...props} />
+                </div>
+            )
             : <Redirect to={{pathname: '/login', state: { from: location.pathname }}}/>)}/>
     )
 };

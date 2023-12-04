@@ -6,11 +6,13 @@ import com.kpi.job_search.image.model.Image;
 import com.kpi.job_search.users.dto.UserDetailsDto;
 import com.kpi.job_search.users.model.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static com.kpi.job_search.auth.TokenService.getUserId;
 
@@ -25,7 +27,14 @@ public class UsersService implements UserDetailsService {
     public AuthUser loadUserByUsername(String email) throws UsernameNotFoundException {
         return usersRepository
                 .findByEmail(email)
-                .map(user -> new AuthUser(user.getId(), user.getEmail(), user.getPassword()))
+                .map(user -> {
+                    var authorities = user.getRoles()
+                            .stream()
+                            .map(r -> new SimpleGrantedAuthority(r.getAuthority()))
+                            .collect(Collectors.toSet());
+
+                    return new AuthUser(user.getId(), user.getEmail(), user.getPassword(), authorities);
+                })
                 .orElseThrow(() -> new UsernameNotFoundException(email));
     }
 

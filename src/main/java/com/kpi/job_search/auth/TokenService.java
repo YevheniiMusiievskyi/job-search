@@ -9,15 +9,20 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static com.kpi.job_search.config.SecurityConstants.EXPIRATION_TIME;
 
@@ -27,8 +32,19 @@ public class TokenService {
     @Value(value = "${jwt.secret-key}")
     private String SECRET_KEY;
 
-    public String extractUserid(String token) {
+    private static final String AUTHORITIES = "authorities";
+
+    public String extractUserId(String token) {
         return extractClaim(token, Claims::getSubject);
+    }
+
+    public Set<GrantedAuthority> getAuthorities(String token) {
+        return extractClaim(token, claims -> ((List<Object>) claims.get(AUTHORITIES))
+                .stream()
+                .map(Object::toString)
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toSet())
+        );
     }
 
     public Date extractExpiration(String token) {
@@ -39,6 +55,7 @@ public class TokenService {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
+
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder().setSigningKey(SECRET_KEY).build().parseClaimsJws(token).getBody();
     }
@@ -49,6 +66,8 @@ public class TokenService {
 
     public String generateToken(AuthUser userDetails) {
         Map<String, Object> claims = new HashMap<>();
+        var authorities = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
+        claims.put(AUTHORITIES, authorities);
         return createToken(claims, userDetails.getId());
     }
 
@@ -63,9 +82,9 @@ public class TokenService {
                 .compact();
     }
 
-    public static UUID getUserId(){
+    public static UUID getUserId() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        var currentUserId = (String)auth.getPrincipal();
+        var currentUserId = (String) auth.getPrincipal();
 
         try {
             return UUID.fromString(currentUserId);

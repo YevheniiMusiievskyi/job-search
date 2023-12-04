@@ -65,9 +65,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private UsernamePasswordAuthenticationToken getAuthentication(String token) {
         if (token != null) {
             // parse the token.
-            String user = tokenService.extractUserid(token);
+            String user = tokenService.extractUserId(token);
+            var authorities = tokenService.getAuthorities(token);
             if (user != null && !tokenService.isTokenExpired(token)) {
-                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+                return new UsernamePasswordAuthenticationToken(user, null, authorities);
             }
             return null;
         }

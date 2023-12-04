@@ -23,7 +23,7 @@ interface UrlParams {
     userId: string;
 }
 
-const Profile: React.FC<ProfileProps & RouteComponentProps<UrlParams>> = (
+const UserProfile: React.FC<ProfileProps & RouteComponentProps<UrlParams>> = (
     {
         user,
         userProfile,
@@ -173,4 +173,4 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type ProfileProps = ConnectedProps<typeof connector>;
 
-export default connector(Profile);
+export default connector(UserProfile);
