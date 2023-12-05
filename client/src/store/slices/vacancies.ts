@@ -32,7 +32,7 @@ export const vacancies = createSlice({
             if (state.expandedVacancy) {
                 state.expandedVacancy = {
                     ...state.expandedVacancy,
-                    isApplied: true
+                    applied: true
                 }
             }
         }

@@ -3,7 +3,7 @@ import validator from 'validator';
 import { Form, Button, Segment } from 'semantic-ui-react';
 
 interface ILoginFormProps {
-    login(request: unknown): void; // TODO сделать нормальный тип реквеста
+    login(request: unknown): void;
 }
 
 const LoginForm: React.FC<ILoginFormProps> = ({ login }) => {

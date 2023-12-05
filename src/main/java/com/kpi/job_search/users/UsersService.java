@@ -1,5 +1,6 @@
 package com.kpi.job_search.users;
 
+import com.kpi.job_search.auth.TokenService;
 import com.kpi.job_search.auth.model.AuthUser;
 import com.kpi.job_search.image.dto.ImageDto;
 import com.kpi.job_search.image.model.Image;
@@ -43,6 +44,10 @@ public class UsersService implements UserDetailsService {
                 .findById(id)
                 .map(userMapper::userToUserDetailsDto)
                 .orElseThrow(() -> new UsernameNotFoundException("No user found with username"));
+    }
+
+    public User getCurrentUser() {
+        return usersRepository.findById(TokenService.getUserId()).orElse(null);
     }
 
     public void save(User user) {

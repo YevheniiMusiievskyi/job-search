@@ -8,9 +8,8 @@
   background-color: $main-color;
   color: $white-color;
   padding: 5px;
-  margin: 10px;
+  margin: 500px 2px;
   border-radius: $border-radius;
-  //padding: 10px;
 }
 
 .remove-tag {
@@ -24,8 +23,16 @@
   margin-left: 3px;
 }
 
+.tagsInput {
+  width: 100%;
+}
+
 .selected {
   margin: 10px;
+}
+
+.selected > {
+  margin: 100px;
 }
 
 .suggestedTag {

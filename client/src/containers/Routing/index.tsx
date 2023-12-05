@@ -4,7 +4,7 @@ import {connect, ConnectedProps} from 'react-redux';
 import Thread from 'src/containers/Thread';
 import LoginPage from 'src/containers/LoginPage';
 import RegistrationPage from 'src/containers/RegistrationPage';
-import Profile from 'src/containers/UserProfile';
+import UserProfile from 'src/containers/UserProfile';
 import Header from 'src/components/Header';
 import Spinner from 'src/components/Spinner';
 import NotFound from 'src/scenes/NotFound';
@@ -15,6 +15,7 @@ import {loadCurrentUser, logout} from "../../store/actions/users";
 import Vacancies from "../Vacancies";
 import VacancyCreation from "../VacancyCreation";
 import VacancyDetails from "../VacancyDetails";
+import {links} from "../../helpers/links";
 
 const Routing: React.FC<RoutingProps> =
     ({
@@ -42,22 +43,22 @@ const Routing: React.FC<RoutingProps> =
                         )}
                         <main className="fill">
                             <Switch>
-                                <PublicRoute exact path="/login" component={LoginPage}/>
-                                <PublicRoute exact path="/registration" component={RegistrationPage}/>
+                                <PublicRoute exact path={links.login} component={LoginPage}/>
+                                <PublicRoute exact path={links.registration} component={RegistrationPage}/>
                                 <PrivateRoute
                                     exact
                                     path={[
-                                        "/",
-                                        "/post/:postId",
-                                        "/user/:userId",
-                                        "/user/:userId/post/:postId"]
+                                        links.home,
+                                        links.expandedPost,
+                                        links.userPosts,
+                                        links.userPostsExpanded]
                                     }
                                     component={Thread}
                                 />
-                                <PrivateRoute exact path="/profile/:userId" component={Profile}/>
-                                <PrivateRoute exact path="/vacancies" component={Vacancies} />
-                                <PrivateRoute exact path="/vacancies/:vacancyId" component={VacancyDetails} />
-                                <PrivateRoute exact path="/vacancy/create" component={VacancyCreation} />
+                                <PrivateRoute exact path={links.userProfile} component={UserProfile}/>
+                                <PrivateRoute exact path={links.vacancies} component={Vacancies} />
+                                <PrivateRoute exact path={links.vacancyDetails} component={VacancyDetails} />
+                                <PrivateRoute exact path={links.createVacancy} component={VacancyCreation} />
                                 <Route path="*" exact component={NotFound}/>
                             </Switch>
                         </main>

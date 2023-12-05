@@ -37,10 +37,11 @@ const SkillsInput: React.FC<ISkillsInputProps> = (
 
     return <ReactTags
         classNames={{
-            tags: `${styles.tags}`,
-            tag: `${styles.tag}`,
+            tags: `ui ${styles.tags}`,
+            tag: `ui ${styles.tag}`,
             // tagInput: `${}`,
             // remove: `${styles.removeTag}`,
+            tagInput: `ui input ${styles.tagsInput}`,
             selected: `${styles.selected}`,
             suggestions: `${styles.suggestedTag}`
         }}

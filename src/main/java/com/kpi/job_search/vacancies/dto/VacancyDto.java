@@ -12,5 +12,6 @@ public class VacancyDto implements VacancyCandidatesCount {
     private String description;
     private int candidatesCount;
     private List<UserShortDto> candidates;
+    private boolean applied;
 
 }

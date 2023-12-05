@@ -3,7 +3,7 @@ export interface IVacancy {
     title: string;
     description: string;
     candidatesCount: number;
-    isApplied: boolean;
+    applied: boolean;
 }
 
 export interface IVacancyShort {

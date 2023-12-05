@@ -1,10 +1,11 @@
-import React from 'react';
-import {NavLink, useHistory} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {NavLink, useHistory, useLocation} from 'react-router-dom';
 import {getUserImgLink} from 'src/helpers/imageHelper';
-import {Header as HeaderUI, Image, Grid, Icon, Button} from 'semantic-ui-react';
+import {Header as HeaderUI, Image, Grid, Icon, Button, Menu} from 'semantic-ui-react';
 
 import styles from './styles.module.scss';
 import {IUser} from "src/models/auth";
+import {links} from "../../helpers/links";
 
 interface IHeaderProps {
     user: IUser | null;
@@ -12,20 +13,47 @@ interface IHeaderProps {
     logout(): void;
 }
 
+enum MenuItem {
+    HOME = "Home", VACANCIES = "Vacancies", CANDIDATES = "Candidates"
+}
+
+const menuMap = new Map<MenuItem, string>([
+    [MenuItem.HOME, links.home],
+    [MenuItem.VACANCIES, links.vacancies],
+    [MenuItem.CANDIDATES, links.candidates]
+])
+
 const Header: React.FC<IHeaderProps> = ({user, logout}) => {
 
     const history = useHistory();
     const handleLogout = () => {
         logout();
-        history.push("/login");
+        history.push(links.login);
+    }
+
+    const [activeMenu, setActiveMenu] = useState<MenuItem | null>(MenuItem.HOME)
+
+    const location = useLocation();
+    useEffect(() => {
+        if (!new Set(menuMap.values()).has(location.pathname) && location.pathname !== links.login) {
+            setActiveMenu(null)
+        }
+    }, [location])
+
+    const goTo = (item: MenuItem) => {
+        const link = menuMap.get(item);
+        if (link !== undefined) {
+            history.push(link)
+            setActiveMenu(item)
+        }
     }
 
     return (
         <div className={styles.headerWrp}>
-            <Grid centered container columns="2">
+            <Grid centered container columns="3">
                 <Grid.Column>
                     {user && (
-                        <NavLink exact to="/">
+                        <NavLink exact to={links.home}>
                             <HeaderUI>
                                 <Image circular src={getUserImgLink(user.avatar)}/>
                                 {' '}
@@ -33,6 +61,25 @@ const Header: React.FC<IHeaderProps> = ({user, logout}) => {
                             </HeaderUI>
                         </NavLink>
                     )}
+                </Grid.Column>
+                <Grid.Column>
+                    <Menu secondary>
+                        <Menu.Item
+                            name='Home'
+                            active={activeMenu === MenuItem.HOME}
+                            onClick={() => goTo(MenuItem.HOME)}
+                        />
+                        <Menu.Item
+                            name='Vacancies'
+                            active={activeMenu === MenuItem.VACANCIES}
+                            onClick={() => goTo(MenuItem.VACANCIES)}
+                        />
+                        <Menu.Item
+                            name='Candidates'
+                            active={activeMenu === MenuItem.CANDIDATES}
+                            onClick={() => goTo(MenuItem.CANDIDATES)}
+                        />
+                    </Menu>
                 </Grid.Column>
                 <Grid.Column textAlign="right">
                     <NavLink exact activeClassName="active" to={`/profile/${user?.id}`} className={styles.menuBtn}>

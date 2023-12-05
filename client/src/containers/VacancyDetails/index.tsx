@@ -23,8 +23,8 @@ const VacancyDetails: React.FC<VacancyDetailsProps & RouteComponentProps<UrlPara
             <Card.Content extra>
                 <Icon name='user'/> {vacancy?.candidatesCount}
             </Card.Content>
-            {vacancy?.isApplied
-                ? <Button disabled={true} primary>Applied</Button>
+            {vacancy?.applied
+                ? <Button disabled={true} positive>Applied</Button>
                 : <Button onClick={() => applyVacancy(match.params.vacancyId)} primary>Apply</Button>
             }
         </Card>

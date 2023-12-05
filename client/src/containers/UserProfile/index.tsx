@@ -23,7 +23,7 @@ interface UrlParams {
     userId: string;
 }
 
-const UserProfile: React.FC<ProfileProps & RouteComponentProps<UrlParams>> = (
+const UserProfile: React.FC<UserProfileProps & RouteComponentProps<UrlParams>> = (
     {
         user,
         userProfile,
@@ -116,42 +116,47 @@ const UserProfile: React.FC<ProfileProps & RouteComponentProps<UrlParams>> = (
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row>
-                <Grid.Column className={styles.gridColumn1}>
+                <Grid.Column className={styles.gridColumn1} textAlign="left">
                     <div>
                         Title
                     </div>
                 </Grid.Column>
                 <Grid.Column className={styles.gridColumn2}>
-                    <Input className={styles.inputField}
-                        name="title" value={title} placeholder='Title' disabled={!isCurrentUser}
+                    <Input className={styles.gridColumn2Item}
+                           name="title" value={title} placeholder='Title' disabled={!isCurrentUser}
                            onChange={ev => setTitle((ev.target as HTMLInputElement).value)}/>
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row className={styles.gridRow}>
-                <Grid.Column className={styles.gridColumn1}>
+                <Grid.Column className={styles.gridColumn1} textAlign="left">
                     Work experience
                 </Grid.Column>
                 <Grid.Column className={styles.gridColumn2}>
-                    <Form className={styles.description}>
+                    <Form className={styles.gridColumn2Item}>
                         <Form.TextArea
                             name="description" placeholder='Description' rows={5}
-                                       value={description} disabled={!isCurrentUser}
-                                       onChange={ev => setDescription((ev.target as HTMLTextAreaElement).value)}/>
+                            value={description} disabled={!isCurrentUser}
+                            onChange={ev => setDescription((ev.target as HTMLTextAreaElement).value)}/>
 
                     </Form>
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row>
-                <SkillsInput
-                    tags={tags}
-                    suggestions={existingSkills ? existingSkills.map(mapSkillToTag) : []}
-                    readonly={isCurrentUser}
-                    handleSkillAddition={handleSkillAddition}
-                    handleSkillDelete={handleDelete}
-                    handleSkillDrag={handleSkillDrag}
-                />
+                <Grid.Column className={styles.gridColumn1} textAlign="left">
+                    Skills
+                </Grid.Column>
+                <Grid.Column className={styles.gridColumn2}>
+                    <SkillsInput
+                        tags={tags}
+                        suggestions={existingSkills ? existingSkills.map(mapSkillToTag) : []}
+                        readonly={isCurrentUser}
+                        handleSkillAddition={handleSkillAddition}
+                        handleSkillDelete={handleDelete}
+                        handleSkillDrag={handleSkillDrag}
+                    />
+                </Grid.Column>
             </Grid.Row>
-            <Button onClick={handleSave}>Save</Button>
+            <Button onClick={handleSave} primary>Save</Button>
         </Grid>
     )
 };
@@ -171,6 +176,6 @@ const mapDispatchToProps = {
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-type ProfileProps = ConnectedProps<typeof connector>;
+type UserProfileProps = ConnectedProps<typeof connector>;
 
 export default connector(UserProfile);

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.kpi.job_search.exceptions.ForbiddenException;
 import com.kpi.job_search.exceptions.NotFoundException;
 import com.kpi.job_search.users.UserMapper;
+import com.kpi.job_search.users.UsersService;
 import com.kpi.job_search.users.model.User;
 import com.kpi.job_search.vacancies.dto.VacancyCreationDto;
 import com.kpi.job_search.vacancies.dto.VacancyDto;
@@ -27,6 +28,7 @@ public class VacancyService {
     private final VacancyMapper vacancyMapper;
 
     private final UserMapper userMapper;
+    private final UsersService usersService;
     private final User currentUser;
 
     public List<VacancyShortDto> getVacancies(int page, int size) {
@@ -41,6 +43,9 @@ public class VacancyService {
         var vacancyDto = vacancyMapper.vacancyToVacancyDto(vacancy);
         if (isCreatedByCurrentUser(vacancy)) {
             vacancyDto.setCandidates(userMapper.userToUserShortDto(vacancy.getCandidates()));
+        }
+        if (vacancy.getCandidates().contains(usersService.getCurrentUser())) {
+            vacancyDto.setApplied(true);
         }
 
         return vacancyDto;
@@ -72,7 +77,7 @@ public class VacancyService {
         }
 
         var candidates = vacancy.getCandidates();
-        if (candidates.contains(currentUser)) {
+        if (candidates.contains(usersService.getCurrentUser())) {
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
         }
 

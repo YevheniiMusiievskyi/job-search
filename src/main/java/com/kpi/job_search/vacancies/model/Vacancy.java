@@ -9,16 +9,19 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.kpi.job_search.db.BaseEntity;
 import com.kpi.job_search.users.model.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
 @Table(name = "vacancies")
 @Data
-@EqualsAndHashCode(callSuper = true, of = {"title", "description"})
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true, of = { "title", "description" })
 public class Vacancy extends BaseEntity {
 
     @Column(nullable = false)
@@ -34,7 +37,9 @@ public class Vacancy extends BaseEntity {
     @ManyToMany
     @JoinTable(name = "vacancies_candidates",
             joinColumns = @JoinColumn(name = "vacancy_id"),
-            inverseJoinColumns = @JoinColumn(name = "candidate_id"))
+            inverseJoinColumns = @JoinColumn(name = "candidate_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"vacancy_id", "candidate_id"})
+    )
     private List<User> candidates = Collections.emptyList();
 
 }
