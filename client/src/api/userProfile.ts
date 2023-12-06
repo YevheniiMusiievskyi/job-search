@@ -2,13 +2,19 @@ import {IUserProfile, IUserProfilePostRequest} from "../models/userProfile";
 import {AxiosResponse} from "axios";
 import {client} from "./index";
 
+const path = "/user-profile"
+
 export const userProfile = {
     fetch(userId: string): Promise<IUserProfile> {
-        return client.get(`/user-profile/${userId}`)
+        return client.get(`${path}/${userId}`)
             .then((r: AxiosResponse<IUserProfile>) => r.data);
     },
-    update(userProfile: IUserProfilePostRequest): Promise<IUserProfile> {
-       return client.post("/user-profile", userProfile)
+    create(userProfile: IUserProfilePostRequest): Promise<IUserProfile> {
+       return client.post(path, userProfile)
            .then((r: AxiosResponse<IUserProfile>) => r.data);
+    },
+    update(userProfile: IUserProfilePostRequest): Promise<IUserProfile> {
+        return client.put(path, userProfile)
+            .then((r: AxiosResponse<IUserProfile>) => r.data);
     }
 }

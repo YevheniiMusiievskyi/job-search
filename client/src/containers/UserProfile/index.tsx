@@ -10,7 +10,7 @@ import {
 import {IRootState} from "src/store";
 import AvatarUploader from "../../components/AvatarUploader";
 import {uploadAvatar} from "../../store/actions/images";
-import {loadUserProfile, updateUserProfile} from "../../store/actions/userProfile";
+import {createUserProfile, loadUserProfile, updateUserProfile} from "../../store/actions/userProfile";
 import {RouteComponentProps} from "react-router-dom";
 import SkillsInput from "../../components/SkillsInput";
 import {loadAllExistingSkills} from "../../store/actions/skills";
@@ -31,6 +31,7 @@ const UserProfile: React.FC<UserProfileProps & RouteComponentProps<UrlParams>> =
         uploadAvatar,
         loadUserProfile,
         loadAllExistingSkills,
+        createUserProfile,
         updateUserProfile,
         match
     }) => {
@@ -78,14 +79,18 @@ const UserProfile: React.FC<UserProfileProps & RouteComponentProps<UrlParams>> =
     const handleSave = () => {
         const mappedSkills = tags.map(mapTagToSkillPostRequest)
 
-        const userProfileUpdate: IUserProfilePostRequest = {
+        const userProfileRequest: IUserProfilePostRequest = {
             id: userProfile ? userProfile.id : null,
             title,
             description,
             skills: mappedSkills
         }
 
-        updateUserProfile(userProfileUpdate)
+        if (userProfileRequest.id) {
+            updateUserProfile(userProfileRequest)
+        } else {
+            createUserProfile(userProfileRequest)
+        }
     }
 
     return (
@@ -171,6 +176,7 @@ const mapDispatchToProps = {
     uploadAvatar,
     loadUserProfile,
     loadAllExistingSkills,
+    createUserProfile,
     updateUserProfile
 }
 
