@@ -13,6 +13,7 @@ import {users} from "./slices/users";
 import {userProfile} from "./slices/userProfile";
 import {skills} from "./slices/skills";
 import {vacancies} from "./slices/vacancies";
+import {candidates} from "./slices/candidates";
 
 export const history = createBrowserHistory();
 
@@ -34,6 +35,7 @@ const reducers = {
     profile: users.reducer,
     userProfile: userProfile.reducer,
     vacancies: vacancies.reducer,
+    candidates: candidates.reducer,
     skills: skills.reducer
 };
 

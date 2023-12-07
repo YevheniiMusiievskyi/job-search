@@ -16,5 +16,9 @@ export const userProfile = {
     update(userProfile: IUserProfilePostRequest): Promise<IUserProfile> {
         return client.put(path, userProfile)
             .then((r: AxiosResponse<IUserProfile>) => r.data);
+    },
+    getCandidates(page, size): Promise<IUserProfile[]> {
+        return client.get(`${path}/candidates?page=${page}&size=${size}`)
+            .then((r: AxiosResponse<IUserProfile[]>) => r.data)
     }
 }

@@ -1,5 +1,6 @@
 package com.kpi.job_search.user_profile;
 
+import java.util.List;
 import java.util.UUID;
 
 import com.kpi.job_search.auth.TokenService;
@@ -10,6 +11,7 @@ import com.kpi.job_search.user_profile.dto.CreateUserProfileDto;
 import com.kpi.job_search.user_profile.dto.UserProfileDto;
 import com.kpi.job_search.users.model.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -48,6 +50,13 @@ public class UserProfileService {
         profile.setSkills(skills);
 
         return userProfileMapper.mapUserProfileToDto(userProfileRepository.save(profile));
+    }
+
+    public List<UserProfileDto> getCandidates(int page, int size) {
+        return userProfileRepository.findAll(PageRequest.of(page, size))
+                .stream()
+                .map(userProfileMapper::mapUserProfileToDto)
+                .toList();
     }
 
 }
