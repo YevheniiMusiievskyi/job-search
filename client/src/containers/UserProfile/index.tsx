@@ -1,26 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
-import {getUserImgLink} from 'src/helpers/imageHelper';
 import {
-    Grid,
-    Image,
-    Input,
-    Form, Button
+    Grid, Menu
 } from 'semantic-ui-react';
 import {IRootState} from "src/store";
-import AvatarUploader from "../../components/AvatarUploader";
 import {uploadAvatar} from "../../store/actions/images";
-import {createUserProfile, loadUserProfile, updateUserProfile} from "../../store/actions/userProfile";
+import {loadUserProfile, updateContacts, updateProfile} from "../../store/actions/userProfile";
 import {RouteComponentProps} from "react-router-dom";
-import SkillsInput from "../../components/SkillsInput";
 import {loadAllExistingSkills} from "../../store/actions/skills";
-import {ITag} from "../../models/skills";
-import {IUserProfilePostRequest} from "../../models/userProfile";
-import {mapSkillToTag, mapTagToSkillPostRequest} from "../../helpers/mappers/skillsMapper";
-import styles from './styles.module.scss';
+import Profile from "../../components/Profile";
+import Contacts from "../../components/Contacts";
 
 interface UrlParams {
     userId: string;
+}
+
+enum MenuItem {
+    PROFILE = "Profile", CONTACTS = "Contacts"
 }
 
 const UserProfile: React.FC<UserProfileProps & RouteComponentProps<UrlParams>> = (
@@ -31,8 +27,8 @@ const UserProfile: React.FC<UserProfileProps & RouteComponentProps<UrlParams>> =
         uploadAvatar,
         loadUserProfile,
         loadAllExistingSkills,
-        createUserProfile,
-        updateUserProfile,
+        updateProfile,
+        updateContacts,
         match
     }) => {
     const userId = match.params.userId;
@@ -43,125 +39,45 @@ const UserProfile: React.FC<UserProfileProps & RouteComponentProps<UrlParams>> =
     }, [match.params.userId])
 
     useEffect(() => {
-        setTitle(userProfile?.title ? userProfile.title : '');
-        setDescription(userProfile?.description ? userProfile.description : '')
-        setTags(userProfile?.skills ? userProfile.skills.map(mapSkillToTag) : [])
-    }, [userProfile])
-
-    useEffect(() => {
         if (isCurrentUser) {
             loadAllExistingSkills()
         }
     }, [match.params.userId])
 
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
-    const [tags, setTags] = useState([] as ITag[])
-
-    const handleSkillAddition = (tag: ITag) => {
-        setTags([...tags, tag]);
-    };
-
-    const handleDelete = i => {
-        setTags(tags.filter((tag, index) => index !== i));
-    };
-
-    const handleSkillDrag = (tag, currPos, newPos) => {
-        const newTags = tags.slice();
-
-        newTags.splice(currPos, 1);
-        newTags.splice(newPos, 0, tag);
-
-        // re-render
-        setTags(newTags);
-    };
-
-    const handleSave = () => {
-        const mappedSkills = tags.map(mapTagToSkillPostRequest)
-
-        const userProfileRequest: IUserProfilePostRequest = {
-            id: userProfile ? userProfile.id : null,
-            title,
-            description,
-            skills: mappedSkills
-        }
-
-        if (userProfileRequest.id) {
-            updateUserProfile(userProfileRequest)
-        } else {
-            createUserProfile(userProfileRequest)
-        }
-    }
+    const [activeMenu, setActiveMenu] = useState(MenuItem.PROFILE)
 
     return (
-        <Grid container textAlign="center" style={{paddingTop: 30}}>
+        <Grid container textAlign="center">
             <Grid.Row>
-                <Grid.Column>
-                    <Image centered src={getUserImgLink(user?.avatar)} size="small" circular/>
-                    <AvatarUploader uploadAvatar={uploadAvatar}/>
-                    <br/>
-                    <Input
-                        icon="user"
-                        iconPosition="left"
-                        placeholder="Username"
-                        type="text"
-                        disabled
-                        value={user?.username}
+                <Menu pointing secondary>
+                    <Menu.Item
+                        name={MenuItem.PROFILE}
+                        active={activeMenu === MenuItem.PROFILE}
+                        onClick={() => setActiveMenu(MenuItem.PROFILE)}
                     />
-                    <br/>
-                    <br/>
-                    <Input
-                        icon="at"
-                        iconPosition="left"
-                        placeholder="Email"
-                        type="email"
-                        disabled
-                        value={user?.email}
+                    <Menu.Item
+                        name={MenuItem.CONTACTS}
+                        active={activeMenu === MenuItem.CONTACTS}
+                        onClick={() => setActiveMenu(MenuItem.CONTACTS)}
                     />
-                </Grid.Column>
+                </Menu>
             </Grid.Row>
-            <Grid.Row>
-                <Grid.Column className={styles.gridColumn1} textAlign="left">
-                    <div>
-                        Title
-                    </div>
-                </Grid.Column>
-                <Grid.Column className={styles.gridColumn2}>
-                    <Input className={styles.gridColumn2Item}
-                           name="title" value={title} placeholder='Title' disabled={!isCurrentUser}
-                           onChange={ev => setTitle((ev.target as HTMLInputElement).value)}/>
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row className={styles.gridRow}>
-                <Grid.Column className={styles.gridColumn1} textAlign="left">
-                    Work experience
-                </Grid.Column>
-                <Grid.Column className={styles.gridColumn2}>
-                    <Form className={styles.gridColumn2Item}>
-                        <Form.TextArea
-                            name="description" placeholder='Description' rows={5}
-                            value={description} disabled={!isCurrentUser}
-                            onChange={ev => setDescription((ev.target as HTMLTextAreaElement).value)}/>
-
-                    </Form>
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-                <Grid.Column className={styles.gridColumn1} textAlign="left">
-                    Skills
-                </Grid.Column>
-                <Grid.Column className={styles.gridColumn2}>
-                    <SkillsInput
-                        tags={tags}
-                        suggestions={existingSkills ? existingSkills.map(mapSkillToTag) : []}
-                        readonly={isCurrentUser}
-                        handleSkillAddition={handleSkillAddition}
-                        handleSkillDelete={handleDelete}
-                        handleSkillDrag={handleSkillDrag}
-                    />
-                </Grid.Column>
-            </Grid.Row>
-            <Button onClick={handleSave} primary>Save</Button>
+            {activeMenu === MenuItem.PROFILE
+                ? userProfile && (
+                <Profile
+                    profile={userProfile.profile}
+                    existingSkills={existingSkills}
+                    updateProfile={updateProfile}
+                />
+            ) : userProfile && (
+                <Contacts
+                    contacts={userProfile.contacts}
+                    avatar={user?.avatar ? user.avatar : null}
+                    uploadAvatar={uploadAvatar}
+                    updateContacts={updateContacts}
+                />
+            )
+            }
         </Grid>
     )
 };
@@ -176,8 +92,8 @@ const mapDispatchToProps = {
     uploadAvatar,
     loadUserProfile,
     loadAllExistingSkills,
-    createUserProfile,
-    updateUserProfile
+    updateProfile,
+    updateContacts
 }
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

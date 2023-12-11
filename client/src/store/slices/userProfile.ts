@@ -17,8 +17,18 @@ export const userProfile = createSlice({
     name: "userProfile",
     initialState,
     reducers: {
+        setUserProfile(state, { payload: userProfile }) {
+            state.userProfile = userProfile
+        },
         setProfile(state, { payload: profile }) {
-            state.userProfile = profile;
+            if (state.userProfile) {
+                state.userProfile.profile = profile
+            }
+        },
+        setContacts(state, { payload: contacts }) {
+            if (state.userProfile) {
+                state.userProfile.contacts = contacts
+            }
         }
     }
 });

@@ -4,6 +4,7 @@ import com.kpi.job_search.auth.dto.UserRegisterDto;
 import com.kpi.job_search.auth.model.AuthUser;
 import com.kpi.job_search.auth.dto.AuthUserDTO;
 import com.kpi.job_search.auth.dto.UserLoginDTO;
+import com.kpi.job_search.user_profile.model.UserProfile;
 import com.kpi.job_search.users.model.User;
 import com.kpi.job_search.users.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class AuthService {
         User user = AuthUserMapper.MAPPER.userRegisterDtoToUser(userDto);
         var loginDTO = new UserLoginDTO(user.getEmail(), user.getPassword());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setUserProfile(new UserProfile());
         userDetailsService.save(user);
         return login(loginDTO);
     }

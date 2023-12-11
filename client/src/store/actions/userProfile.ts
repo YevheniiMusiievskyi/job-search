@@ -1,12 +1,13 @@
 import {Dispatch} from "redux";
 import {API} from "../../api";
-import {IUserProfile, IUserProfilePostRequest} from "../../models/userProfile";
-import { userProfile } from "../slices/userProfile";
-const { actions } = userProfile;
+import {IContacts, IUserProfile, IUserProfilePostRequest} from "../../models/userProfile";
+import {userProfile} from "../slices/userProfile";
+
+const {actions} = userProfile;
 
 export const loadUserProfile = (userId: string) => (dispatch: Dispatch) => {
     return API.userProfile.fetch(userId)
-        .then((p: IUserProfile) => dispatch(actions.setProfile(p)))
+        .then((p: IUserProfile) => dispatch(actions.setUserProfile(p)))
 }
 
 export const createUserProfile = (userProfile: IUserProfilePostRequest) => (dispatch: Dispatch) => {
@@ -14,7 +15,12 @@ export const createUserProfile = (userProfile: IUserProfilePostRequest) => (disp
         .then((p: IUserProfile) => dispatch(actions.setProfile(p)))
 }
 
-export const updateUserProfile = (userProfile: IUserProfilePostRequest) => (dispatch: Dispatch) => {
-    return API.userProfile.update(userProfile)
+export const updateProfile = (profile: IUserProfilePostRequest) => (dispatch: Dispatch) => {
+    return API.userProfile.updateProfile(profile)
         .then((p: IUserProfile) => dispatch(actions.setProfile(p)))
+}
+
+export const updateContacts = (contacts: IContacts) => (dispatch: Dispatch) => {
+    return API.userProfile.updateContacts(contacts)
+        .then((c: IContacts) => dispatch(actions.setContacts(c)))
 }

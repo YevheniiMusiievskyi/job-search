@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import com.kpi.job_search.db.BaseEntity;
 import com.kpi.job_search.image.model.Image;
+import com.kpi.job_search.user_profile.model.UserProfile;
 import com.kpi.job_search.vacancies.model.Vacancy;
 import lombok.*;
 import javax.persistence.*;
@@ -24,6 +25,8 @@ public class User extends BaseEntity {
     @Column(name = "username")
     private String username;
 
+    private String fullName;
+
     @Column(name = "password")
     private String password;
 
@@ -32,6 +35,9 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Set<UserRole> roles = new HashSet<>();
+
+    @OneToOne(mappedBy = "user")
+    private UserProfile userProfile;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "avatar_id")

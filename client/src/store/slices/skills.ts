@@ -2,11 +2,11 @@ import {ISkill} from "../../models/skills";
 import {createSlice} from "@reduxjs/toolkit";
 
 interface InitialState {
-    existingSkills: ISkill[] | null;
+    existingSkills: ISkill[];
 }
 
 const initialState: InitialState = {
-    existingSkills: null
+    existingSkills: []
 };
 
 export const skills = createSlice({

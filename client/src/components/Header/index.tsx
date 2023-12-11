@@ -6,6 +6,7 @@ import {Header as HeaderUI, Image, Grid, Icon, Button, Menu} from 'semantic-ui-r
 import styles from './styles.module.scss';
 import {IUser} from "src/models/auth";
 import {links} from "../../helpers/links";
+import {withUserId} from "../../helpers/utils";
 
 interface IHeaderProps {
     user: IUser | null;
@@ -65,24 +66,24 @@ const Header: React.FC<IHeaderProps> = ({user, logout}) => {
                 <Grid.Column>
                     <Menu secondary>
                         <Menu.Item
-                            name='Home'
+                            name={MenuItem.HOME}
                             active={activeMenu === MenuItem.HOME}
                             onClick={() => goTo(MenuItem.HOME)}
                         />
                         <Menu.Item
-                            name='Vacancies'
+                            name={MenuItem.VACANCIES}
                             active={activeMenu === MenuItem.VACANCIES}
                             onClick={() => goTo(MenuItem.VACANCIES)}
                         />
                         <Menu.Item
-                            name='Candidates'
+                            name={MenuItem.CANDIDATES}
                             active={activeMenu === MenuItem.CANDIDATES}
                             onClick={() => goTo(MenuItem.CANDIDATES)}
                         />
                     </Menu>
                 </Grid.Column>
                 <Grid.Column textAlign="right">
-                    <NavLink exact activeClassName="active" to={`/profile/${user?.id}`} className={styles.menuBtn}>
+                    <NavLink exact activeClassName="active" to={withUserId(links.userProfile, user?.id)} className={styles.menuBtn}>
                         <Icon name="user circle" size="large"/>
                     </NavLink>
                     <Button basic icon type="button" className={`${styles.menuBtn} ${styles.logoutBtn}`}

@@ -1,3 +1,5 @@
+export const userIdPath = ":userId"
+
 export const links = {
     login: "/login",
     registration: "/registration",

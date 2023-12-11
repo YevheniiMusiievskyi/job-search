@@ -3,7 +3,8 @@ package com.kpi.job_search.user_profile;
 import java.util.List;
 import java.util.UUID;
 
-import com.kpi.job_search.user_profile.dto.CreateUserProfileDto;
+import com.kpi.job_search.user_profile.dto.ContactsDto;
+import com.kpi.job_search.user_profile.dto.ProfileDto;
 import com.kpi.job_search.user_profile.dto.UserProfileDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,14 +28,20 @@ public class UserProfileController {
         return userProfileService.getUserProfile(userId);
     }
 
-    @PostMapping
-    public UserProfileDto createUserProfile(@RequestBody CreateUserProfileDto userProfileDto) {
-        return userProfileService.createUserProfile(userProfileDto);
+    @PostMapping("/profile")
+    public UserProfileDto createUserProfile(@RequestBody ProfileDto profileDto) {
+//        return userProfileService.createUserProfile(profileDto);
+        return null;
     }
 
-    @PutMapping
-    public UserProfileDto updateUserProfile(@RequestBody UserProfileDto userProfileDto) {
-        return userProfileService.updateUserProfile(userProfileDto);
+    @PutMapping("/profile")
+    public ProfileDto updateUserProfile(@RequestBody ProfileDto profileDto) {
+        return userProfileService.updateUserProfile(profileDto);
+    }
+
+    @PutMapping("/contacts")
+    public ContactsDto updateContacts(@RequestBody ContactsDto contactsDto) {
+        return userProfileService.updateContacts(contactsDto);
     }
 
     @GetMapping("/candidates")

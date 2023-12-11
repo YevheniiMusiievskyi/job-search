@@ -1,4 +1,4 @@
-import {IUserProfile, IUserProfilePostRequest} from "../models/userProfile";
+import {IContacts, IUserProfile, IUserProfilePostRequest} from "../models/userProfile";
 import {AxiosResponse} from "axios";
 import {client} from "./index";
 
@@ -13,9 +13,13 @@ export const userProfile = {
        return client.post(path, userProfile)
            .then((r: AxiosResponse<IUserProfile>) => r.data);
     },
-    update(userProfile: IUserProfilePostRequest): Promise<IUserProfile> {
+    updateProfile(userProfile: IUserProfilePostRequest): Promise<IUserProfile> {
         return client.put(path, userProfile)
             .then((r: AxiosResponse<IUserProfile>) => r.data);
+    },
+    updateContacts(contacts: IContacts): Promise<IContacts> {
+        return client.put(`${path}/contacts`, contacts)
+            .then((r: AxiosResponse<IContacts>) => r.data);
     },
     getCandidates(page, size): Promise<IUserProfile[]> {
         return client.get(`${path}/candidates?page=${page}&size=${size}`)
