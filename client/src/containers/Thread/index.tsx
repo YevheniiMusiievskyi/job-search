@@ -90,7 +90,7 @@ const Thread: React.FC<ThreadProps & RouteComponentProps<UrlParams>> = (
                             loader={<Loader active inline="centered" key={0} />}>
                 {posts?.map((post: IPost) => (
                     updatingPost !== post ? (
-                        <Post post={post} likePost={likePost} dislikePost={dislikePost}
+                        <Post post={post} currentUser={user} likePost={likePost} dislikePost={dislikePost}
                               toggleExpandedPost={toggleExpandedPostWrap}
                               setUpdatingPost={setUpdatingPost} deletePost={deletePost} key={post.id}/>
                     ) : (

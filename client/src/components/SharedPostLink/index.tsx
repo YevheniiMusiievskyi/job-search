@@ -12,7 +12,7 @@ const SharedPostLink: React.FC<ISharedPostLinkProps> = ({postId, close}) => {
     let input = useRef<any>();
 
     const copyToClipboard = e => {
-        (input as any).select(); // FIXME поправить костыль
+        (input as any).select();
         document.execCommand('copy');
         e.target.focus();
         setCopied(true);
@@ -37,7 +37,7 @@ const SharedPostLink: React.FC<ISharedPostLinkProps> = ({postId, close}) => {
                 content: 'Copy',
                 onClick: copyToClipboard
             }} value={`${window.location.origin}/share/${postId}`} ref={ref => {
-                input = (ref as any); // FIXME поправить костыль
+                input = (ref as any);
             }} />
           </Modal.Content>
         </Modal>

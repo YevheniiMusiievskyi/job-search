@@ -34,6 +34,7 @@ interface HocProps {
 const ExpandedPost: FC<ExpandedPostProps & HocProps> = (
     {
         post,
+        currentUser,
         hasMoreComments,
         likePost,
         dislikePost,
@@ -65,7 +66,7 @@ const ExpandedPost: FC<ExpandedPostProps & HocProps> = (
                 ? (
                     <Modal.Content>
                         {updatingPost !== post ? (
-                            <Post post={post} likePost={likePost} dislikePost={dislikePost}
+                            <Post post={post} currentUser={currentUser} likePost={likePost} dislikePost={dislikePost}
                                   toggleExpandedPost={toggleExpandedPost}
                                   setUpdatingPost={setUpdatingPost} deletePost={deletePost}/>
                         ) : (
@@ -108,6 +109,7 @@ const ExpandedPost: FC<ExpandedPostProps & HocProps> = (
 };
 
 const mapStateToProps = (state: IRootState) => ({
+    currentUser: state.profile.user,
     post: state.posts.expandedPost,
     hasMoreComments: state.posts.hasMoreComments
 });

@@ -6,9 +6,12 @@ import store from '../../store';
 import {IPost} from "src/models/post";
 import {Link} from 'react-router-dom';
 import {getUserImgLink} from "../../helpers/imageHelper";
+import {IUser} from "../../models/auth";
 
 interface IPostProps {
     post: IPost;
+
+    currentUser: IUser | null;
 
     likePost(id: string): void;
 
@@ -24,6 +27,7 @@ interface IPostProps {
 const Post: React.FC<IPostProps> = (
     {
         post,
+        currentUser,
         likePost,
         dislikePost,
         toggleExpandedPost,
@@ -79,7 +83,7 @@ const Post: React.FC<IPostProps> = (
                     <Icon name="comment"/>
                     {commentCount}
                 </Label>
-                {store.getState().profile.user?.id !== user.id ? '' : (
+                {currentUser?.id !== user.id ? '' : (
                     <Dropdown>
                         <Dropdown.Menu size="sm" title="">
                             <Dropdown.Item onClick={() => setUpdatingPost(post)}>Edit</Dropdown.Item>
