@@ -8,6 +8,7 @@ import lombok.Data;
 public class UserProfileDto {
 
     private UUID id;
+    private UUID userId;
     private ProfileDto profile;
     private ContactsDto contacts;
 

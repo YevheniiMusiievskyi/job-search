@@ -2,7 +2,8 @@ import {ISkill, ISkillPostRequest} from "./skills";
 
 export interface IUserProfile {
     id: string
-    profile: IProfile
+    userId: string
+    profile: IProfile | null
     contacts: IContacts | null
 }
 

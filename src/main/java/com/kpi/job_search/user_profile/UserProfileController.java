@@ -50,4 +50,9 @@ public class UserProfileController {
         return userProfileService.getCandidates(page, size);
     }
 
+    @GetMapping("/candidates/{userId}")
+    public UserProfileDto getCandidate(@PathVariable UUID userId) {
+        return userProfileService.getCandidate(userId);
+    }
+
 }

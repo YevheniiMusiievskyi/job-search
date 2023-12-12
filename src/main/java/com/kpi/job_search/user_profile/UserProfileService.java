@@ -91,4 +91,10 @@ public class UserProfileService {
                 .toList();
     }
 
+    public UserProfileDto getCandidate(UUID userId) {
+        return userProfileRepository.findByUserId(userId)
+                .map(userProfileMapper::mapUserProfileToDto)
+                .orElseThrow(NotFoundException::new);
+    }
+
 }

@@ -6,7 +6,11 @@ export function isUUID(value: string): boolean {
     return regexExp.test(value);
 }
 
-export function trimToSize(str: string, size: number): string {
+export function trimToSize(str: string | null | undefined, size: number): string {
+    if (!str) {
+        return ''
+    }
+
     const sizeToSpace = regexIndexOf(str, /\s/, size)
     return str.substr(0, Math.max(size, sizeToSpace))
 }

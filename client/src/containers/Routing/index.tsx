@@ -16,6 +16,8 @@ import Vacancies from "../Vacancies";
 import VacancyCreation from "../VacancyCreation";
 import VacancyDetails from "../VacancyDetails";
 import {links} from "../../helpers/links";
+import Candidates from "../Candidates";
+import Candidate from "../Candidate";
 
 const Routing: React.FC<RoutingProps> =
     ({
@@ -59,6 +61,8 @@ const Routing: React.FC<RoutingProps> =
                                 <PrivateRoute exact path={links.vacancies} component={Vacancies} />
                                 <PrivateRoute exact path={links.vacancyDetails} component={VacancyDetails} />
                                 <PrivateRoute exact path={links.createVacancy} component={VacancyCreation} />
+                                <PrivateRoute exact path={links.candidates} component={Candidates} />
+                                <PrivateRoute exact path={links.candidate} component={Candidate} />
                                 <Route path="*" exact component={NotFound}/>
                             </Switch>
                         </main>

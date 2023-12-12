@@ -1,0 +1,9 @@
+@import "../../styles/common.scss";
+
+.skill {
+  color: black;
+  margin: 10px 5px;
+  padding: 3px;
+  border-radius: $border-radius;
+  border: 1px solid rgba(34,36,38,.15);
+}

@@ -1,25 +1,28 @@
 import {IRootState} from "../../store";
-import {getCandidates} from "../../store/actions/candidates";
+import {loadCandidates} from "../../store/actions/candidates";
 import {connect, ConnectedProps} from "react-redux";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import {IPageFiler} from "../../models/filter";
+import CandidateShortView from "../../components/CandidateShortView";
 
 const filter: IPageFiler = {
     page: 0,
     size: 25
 }
 
-const Candidates: React.FC<CandidatesProps> = ({ candidates, hasMoreCandidates, getCandidates }) => {
+const Candidates: React.FC<CandidatesProps> = ({candidates, hasMoreCandidates, loadCandidates}) => {
 
     const loadMoreCandidates = () => {
-        getCandidates(filter)
+        loadCandidates(filter)
         filter.page++
     }
 
     return (
         <InfiniteScroll pageStart={0} hasMore={hasMoreCandidates} loadMore={loadMoreCandidates}>
-            
+            {candidates.map(candidate => {
+                return <CandidateShortView userProfile={candidate} userId={candidate.userId}/>
+            })}
         </InfiniteScroll>
     )
 }
@@ -30,7 +33,7 @@ const mapStateToProps = (state: IRootState) => ({
 })
 
 const mapDispatchToProps = {
-    getCandidates
+    loadCandidates
 }
 
 const connector = connect(mapStateToProps, mapDispatchToProps)
