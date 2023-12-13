@@ -8,6 +8,21 @@ const { actions } = candidates;
 
 export const loadCandidates = (filter: IPageFiler) => (dispatch: Dispatch) => {
     API.userProfile.fetchCandidates(filter.page, filter.size)
+        .then(c => dispatch(actions.setAllCandidates(c)))
+}
+
+export const loadMoreCandidates = (filter: IPageFiler) => (dispatch: Dispatch) => {
+    API.userProfile.fetchCandidates(filter.page, filter.size)
+        .then(c => dispatch(actions.loadMoreCandidates(c)))
+}
+
+export const loadCandidatesForVacancy = (vacancyId: string, filter: IPageFiler) => (dispatch: Dispatch) => {
+    API.userProfile.fetchCandidatesForVacancy(vacancyId, filter.page, filter.size)
+        .then(c => dispatch(actions.setAllCandidates(c)))
+}
+
+export const loadMoreCandidatesForVacancy = (vacancyId: string, filter: IPageFiler) => (dispatch: Dispatch) => {
+    API.userProfile.fetchCandidatesForVacancy(vacancyId, filter.page, filter.size)
         .then(c => dispatch(actions.loadMoreCandidates(c)))
 }
 

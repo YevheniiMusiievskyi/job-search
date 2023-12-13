@@ -1,10 +1,13 @@
 import React, {useEffect} from "react";
-import styles from "../../components/VacancyShort/styles.module.scss";
+import styles from "./styles.module.scss";
 import {Button, Card, Icon} from "semantic-ui-react";
 import {IRootState} from "../../store";
 import {connect, ConnectedProps} from "react-redux";
-import {RouteComponentProps} from "react-router-dom";
+import {NavLink, RouteComponentProps} from "react-router-dom";
 import {applyVacancy, loadVacancy} from "../../store/actions/vacancies";
+import {getUserId} from "../../helpers/tokenParser";
+import {withVacancyId} from "../../helpers/utils";
+import {links} from "../../helpers/links";
 
 interface UrlParams {
     vacancyId: string;
@@ -15,6 +18,18 @@ const VacancyDetails: React.FC<VacancyDetailsProps & RouteComponentProps<UrlPara
         loadVacancy(match.params.vacancyId)
     }, [match.params.vacancyId])
 
+    const isCreatedByCurrentUser = vacancy?.recruiter.id === getUserId()
+
+    const getApplyButton = () => {
+        if (!isCreatedByCurrentUser) {
+            return vacancy?.applied
+                ? <Button disabled={true} positive>Applied</Button>
+                : <Button onClick={() => applyVacancy(match.params.vacancyId)} primary>Apply</Button>
+        } else {
+            return <></>
+        }
+    }
+
     return (
         <Card className={styles.vacancy}>
             <Card.Content header={vacancy?.title}/>
@@ -23,9 +38,11 @@ const VacancyDetails: React.FC<VacancyDetailsProps & RouteComponentProps<UrlPara
             <Card.Content extra>
                 <Icon name='user'/> {vacancy?.candidatesCount}
             </Card.Content>
-            {vacancy?.applied
-                ? <Button disabled={true} positive>Applied</Button>
-                : <Button onClick={() => applyVacancy(match.params.vacancyId)} primary>Apply</Button>
+            {getApplyButton()}
+            {isCreatedByCurrentUser &&
+                <NavLink to={withVacancyId(links.candidatesForVacancy, vacancy?.id)}>
+                    <Button primary className={styles.viewCandidates}>View candidates</Button>
+                </NavLink>
             }
         </Card>
     )

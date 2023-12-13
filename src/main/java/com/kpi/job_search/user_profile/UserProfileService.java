@@ -33,16 +33,9 @@ public class UserProfileService {
         );
     }
 
-    /*public UserProfileDto createUserProfile(UserProfileDto userProfileDto) {
-        var profile = userProfileMapper.mapCreateDtoToUserProfile(userProfileDto);
-        var skills = skillsService.saveSkills(userProfileDto.getSkills());
-        profile.setSkills(skills);
-
-        var userProfile = new UserProfile();
-        userProfile.setUser(new User(TokenService.getUserId()));
-
-        return userProfileMapper.mapUserProfileToDto(userProfileRepository.save(userProfile));
-    }*/
+    public void save(UserProfile userProfile) {
+        userProfileRepository.save(userProfile);
+    }
 
     public ProfileDto updateUserProfile(ProfileDto userProfileDto) {
         var userProfile = findUserProfile();
@@ -86,6 +79,13 @@ public class UserProfileService {
 
     public List<UserProfileDto> getCandidates(int page, int size) {
         return userProfileRepository.findAll(PageRequest.of(page, size))
+                .stream()
+                .map(userProfileMapper::mapUserProfileToDto)
+                .toList();
+    }
+
+    public List<UserProfileDto> getCandidatesForVacancy(UUID vacancyId, int page, int size) {
+        return userProfileRepository.findCandidatesByVacancyId(vacancyId, PageRequest.of(page, size))
                 .stream()
                 .map(userProfileMapper::mapUserProfileToDto)
                 .toList();

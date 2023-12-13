@@ -55,4 +55,11 @@ public class UserProfileController {
         return userProfileService.getCandidate(userId);
     }
 
+    @GetMapping("/candidates/vacancy/{vacancyId}")
+    public List<UserProfileDto> getCandidatesForVacancy(@PathVariable UUID vacancyId,
+                                                        @RequestParam(defaultValue="0") Integer page,
+                                                        @RequestParam(defaultValue="10") Integer size) {
+        return userProfileService.getCandidatesForVacancy(vacancyId, page, size);
+    }
+
 }

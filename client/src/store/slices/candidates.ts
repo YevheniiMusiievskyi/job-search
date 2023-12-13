@@ -19,7 +19,7 @@ export const candidates = createSlice({
     reducers: {
         setAllCandidates(state, { payload: candidates }) {
             state.candidates = candidates
-            state.hasMoreCandidates = Boolean(candidates)
+            state.hasMoreCandidates = Boolean(candidates?.length)
         },
         loadMoreCandidates(state, { payload: candidates }) {
             state.candidates = state.candidates.concat(candidates)

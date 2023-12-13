@@ -40,7 +40,7 @@ const Routing: React.FC<RoutingProps> =
                     <div className="fill">
                         {isAuthorized && (
                             <header>
-                                <Header user={user} logout={logout} />
+                                <Header user={user} logout={logout}/>
                             </header>
                         )}
                         <main className="fill">
@@ -58,11 +58,18 @@ const Routing: React.FC<RoutingProps> =
                                     component={Thread}
                                 />
                                 <PrivateRoute exact path={links.userProfile} component={UserProfile}/>
-                                <PrivateRoute exact path={links.vacancies} component={Vacancies} />
-                                <PrivateRoute exact path={links.vacancyDetails} component={VacancyDetails} />
-                                <PrivateRoute exact path={links.createVacancy} component={VacancyCreation} />
-                                <PrivateRoute exact path={links.candidates} component={Candidates} />
-                                <PrivateRoute exact path={links.candidate} component={Candidate} />
+                                <PrivateRoute exact path={links.vacancies} component={Vacancies}/>
+                                <PrivateRoute exact path={links.vacancyDetails} component={VacancyDetails}/>
+                                <PrivateRoute exact path={links.createVacancy} component={VacancyCreation}/>
+                                <PrivateRoute
+                                    exact
+                                    path={[
+                                        links.candidates,
+                                        links.candidatesForVacancy]
+                                    }
+                                    component={Candidates}
+                                />
+                                <PrivateRoute exact path={links.candidate} component={Candidate}/>
                                 <Route path="*" exact component={NotFound}/>
                             </Switch>
                         </main>

@@ -4,6 +4,7 @@ import com.kpi.job_search.auth.TokenService;
 import com.kpi.job_search.auth.model.AuthUser;
 import com.kpi.job_search.image.dto.ImageDto;
 import com.kpi.job_search.image.model.Image;
+import com.kpi.job_search.user_profile.UserProfileService;
 import com.kpi.job_search.users.dto.UserDetailsDto;
 import com.kpi.job_search.users.model.User;
 import lombok.RequiredArgsConstructor;
@@ -50,8 +51,8 @@ public class UsersService implements UserDetailsService {
         return usersRepository.findById(TokenService.getUserId()).orElse(null);
     }
 
-    public void save(User user) {
-        usersRepository.save(user);
+    public User save(User user) {
+        return usersRepository.save(user);
     }
 
     public void setAvatar(ImageDto avatar) {

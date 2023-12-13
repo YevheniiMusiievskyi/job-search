@@ -1,4 +1,5 @@
 export const userIdPath = ":userId"
+export const vacancyIdPath = ":vacancyId"
 
 export const links = {
     login: "/login",
@@ -15,6 +16,7 @@ export const links = {
     vacancies: "/vacancies",
     vacancyDetails: "/vacancies/:vacancyId",
     createVacancy: "/vacancy/create",
+    candidatesForVacancy: "/vacancy/:vacancyId/candidates",
 
     candidates: "/candidates",
     candidate: `/candidate/:userId`

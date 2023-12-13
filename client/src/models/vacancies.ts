@@ -1,8 +1,11 @@
+import {IUser} from "./auth";
+
 export interface IVacancy {
     id: string;
     title: string;
     description: string;
     candidatesCount: number;
+    recruiter: IUser
     applied: boolean;
 }
 

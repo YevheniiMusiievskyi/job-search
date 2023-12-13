@@ -1,4 +1,4 @@
-import {userIdPath} from "./links";
+import {userIdPath, vacancyIdPath} from "./links";
 
 const regexExp = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
@@ -25,9 +25,17 @@ export function getOrEmpty(str: string | null | undefined): string {
 }
 
 export function withUserId(link: string, userId: string | undefined) {
-    if (!userId) {
+    return replacePathVariable(link, userId, userIdPath)
+}
+
+export function withVacancyId(link: string, vacancyId: string | undefined) {
+    return replacePathVariable(link, vacancyId, vacancyIdPath)
+}
+
+function replacePathVariable(link: string, id: string | undefined, pathToReplace: string) {
+    if (!id) {
         return link
     }
 
-    return link.replace(userIdPath, userId)
+    return link.replace(pathToReplace, id)
 }

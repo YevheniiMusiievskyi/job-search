@@ -1,5 +1,6 @@
 package com.kpi.job_search.vacancies;
 
+import com.kpi.job_search.users.UserMapper;
 import com.kpi.job_search.vacancies.dto.VacancyCandidatesCount;
 import com.kpi.job_search.vacancies.dto.VacancyCreationDto;
 import com.kpi.job_search.vacancies.dto.VacancyDto;
@@ -10,7 +11,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = UserMapper.class)
 public interface VacancyMapper {
 
     @Mapping(target = "candidates", ignore = true)

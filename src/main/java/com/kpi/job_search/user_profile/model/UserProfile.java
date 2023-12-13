@@ -24,7 +24,7 @@ public class UserProfile extends BaseEntity {
     private Contacts contacts;
 
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
 }

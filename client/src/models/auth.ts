@@ -15,3 +15,8 @@ export interface IAuthUser {
     token: string;
     user: IUser;
 }
+
+export interface IToken {
+    authorities: string[]
+    sub: string
+}

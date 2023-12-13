@@ -25,6 +25,10 @@ export const userProfile = {
         return client.get(`${path}/candidates?page=${page}&size=${size}`)
             .then((r: AxiosResponse<IUserProfile[]>) => r.data)
     },
+    fetchCandidatesForVacancy(vacancyId, page, size): Promise<IUserProfile[]> {
+        return client.get(`${path}/candidates/vacancy/${vacancyId}?page=${page}&size=${size}`)
+            .then((r: AxiosResponse<IUserProfile[]>) => r.data)
+    },
     fetchCandidate(id: string): Promise<IUserProfile> {
         return client.get(`${path}/candidates/${id}`)
             .then((r: AxiosResponse<IUserProfile>) => r.data)
