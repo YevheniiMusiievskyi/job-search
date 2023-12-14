@@ -3,9 +3,12 @@ import InfiniteScroll from "react-infinite-scroller";
 import {IRootState} from "../../store";
 import {loadMoreVacancies, loadVacancies} from "../../store/actions/vacancies";
 import {connect, ConnectedProps} from "react-redux";
-import {Loader} from "semantic-ui-react";
+import {Button, Loader} from "semantic-ui-react";
 import {IVacancyShort} from "../../models/vacancies";
 import {VacancyShort} from "../../components/VacancyShort";
+import styles from "./styles.module.scss"
+import {NavLink} from "react-router-dom";
+import {links} from "../../helpers/links";
 
 const vacanciesFilter = {
     page: 0,
@@ -21,6 +24,9 @@ const Vacancies: React.FC<VacanciesProps> = ({vacancies, hasMoreVacancies, loadV
 
     return (
         <div>
+            <NavLink to={links.createVacancy}>
+                <Button className={styles.createNewVacancy} primary floated="right">Create vacancy</Button>
+            </NavLink>
             <InfiniteScroll loadMore={getMoreVacancies} hasMore={hasMoreVacancies}
                             loader={<Loader active inline="centered" key={0}/>}>
                 {
