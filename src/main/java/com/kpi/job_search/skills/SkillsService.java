@@ -7,6 +7,7 @@ import com.kpi.job_search.skills.model.Skill;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,11 +20,11 @@ public class SkillsService {
         return skillsMapper.mapSkillsToDto(skillsRepository.findAll());
     }
 
+    @Transactional
     public List<Skill> saveSkills(List<SkillDto> skillsDto) {
         var skills = skillsMapper.mapDtoToSkills(skillsDto);
         var skillNames = skills
                 .stream()
-                .filter(s -> s.getId() != null)
                 .map(Skill::getName)
                 .map(String::toLowerCase)
                 .toList();

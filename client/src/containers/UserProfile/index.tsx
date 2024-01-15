@@ -63,15 +63,15 @@ const UserProfile: React.FC<UserProfileProps & RouteComponentProps<UrlParams>> =
                 </Menu>
             </Grid.Row>
             {activeMenu === MenuItem.PROFILE
-                ? userProfile && (
+                ? (
                 <Profile
-                    profile={userProfile.profile}
+                    profile={userProfile?.profile}
                     existingSkills={existingSkills}
                     updateProfile={updateProfile}
                 />
-            ) : userProfile && (
+            ) : (
                 <Contacts
-                    contacts={userProfile.contacts}
+                    contacts={userProfile?.contacts}
                     avatar={user?.avatar ? user.avatar : null}
                     uploadAvatar={uploadAvatar}
                     updateContacts={updateContacts}

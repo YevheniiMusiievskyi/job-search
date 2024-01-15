@@ -1,5 +1,6 @@
 package com.kpi.job_search.user_profile;
 
+import com.kpi.job_search.image.ImageMapper;
 import com.kpi.job_search.user_profile.dto.ContactsDto;
 import com.kpi.job_search.user_profile.dto.CreateProfileDto;
 import com.kpi.job_search.user_profile.dto.ProfileDto;
@@ -14,7 +15,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-@Mapper(componentModel = "spring", uses = {SkillsMapper.class, UserMapper.class})
+@Mapper(componentModel = "spring", uses = {SkillsMapper.class, UserMapper.class, ImageMapper.class})
 public interface UserProfileMapper {
 
     @Mapping(source = "user.id", target = "userId")
@@ -38,6 +39,7 @@ public interface UserProfileMapper {
 
     void updateContactsFromDto(ContactsDto contactsDto, @MappingTarget Contacts contacts);
 
+    @Mapping(target = "avatar", ignore = true)
     void updateUserFromContactsDto(ContactsDto contactsDto, @MappingTarget User user);
 
 }

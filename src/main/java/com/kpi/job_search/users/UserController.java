@@ -16,7 +16,7 @@ public class UserController {
 
     @GetMapping
     public UserDetailsDto getUser() {
-        return userDetailsService.getUserById(getUserId());
+        return userDetailsService.getUserDetailsById(getUserId());
     }
 
     @PostMapping("/avatar")

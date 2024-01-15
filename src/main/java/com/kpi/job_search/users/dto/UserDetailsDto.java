@@ -8,6 +8,6 @@ import java.util.UUID;
 public class UserDetailsDto {
     private UUID id;
     private String email;
-    private String username;
+    private String fullName;
     private ImageDto avatar;
 }

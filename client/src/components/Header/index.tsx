@@ -54,13 +54,11 @@ const Header: React.FC<IHeaderProps> = ({user, logout}) => {
             <Grid centered container columns="3">
                 <Grid.Column>
                     {user && (
-                        <NavLink exact to={links.home}>
-                            <HeaderUI>
-                                <Image circular src={getUserImgLink(user.avatar)}/>
-                                {' '}
-                                {user.username}
-                            </HeaderUI>
-                        </NavLink>
+                        <HeaderUI>
+                            <Image circular src={getUserImgLink(user.avatar)}/>
+                            {' '}
+                            {user.fullName}
+                        </HeaderUI>
                     )}
                 </Grid.Column>
                 <Grid.Column>
@@ -83,7 +81,8 @@ const Header: React.FC<IHeaderProps> = ({user, logout}) => {
                     </Menu>
                 </Grid.Column>
                 <Grid.Column textAlign="right">
-                    <NavLink exact activeClassName="active" to={withUserId(links.userProfile, user?.id)} className={styles.menuBtn}>
+                    <NavLink exact activeClassName="active" to={withUserId(links.userProfile, user?.id)}
+                             className={styles.menuBtn}>
                         <Icon name="user circle" size="large"/>
                     </NavLink>
                     <Button basic icon type="button" className={`${styles.menuBtn} ${styles.logoutBtn}`}

@@ -1,14 +1,15 @@
 export interface IUser {
     id: string;
-    username: string;
+    fullName: string;
     email?: string;
     avatar?: string;
 }
 
 export interface IRegistrationRequest {
-    username: string;
     email: string;
+    fullName: string;
     password: string;
+    role: string;
 }
 
 export interface IAuthUser {

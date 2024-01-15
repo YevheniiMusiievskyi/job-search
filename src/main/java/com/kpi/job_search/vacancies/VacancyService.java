@@ -70,6 +70,16 @@ public class VacancyService {
         vacancyRepository.save(vacancy);
     }
 
+    public void delete(UUID vacancyId) {
+        var vacancy = findVacancy(vacancyId);
+
+        if (!isCreatedByCurrentUser(vacancy)) {
+            throw new ForbiddenException();
+        }
+
+        vacancyRepository.deleteById(vacancy.getId());
+    }
+
     public void applyVacancy(UUID vacancyId) {
         var vacancy = findVacancy(vacancyId);
         if (isCreatedByCurrentUser(vacancy)) {
@@ -93,5 +103,4 @@ public class VacancyService {
     private boolean isCreatedByCurrentUser(Vacancy vacancy) {
         return vacancy.getRecruiter().equals(currentUser);
     }
-
 }

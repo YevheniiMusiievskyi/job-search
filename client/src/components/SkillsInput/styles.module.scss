@@ -7,13 +7,10 @@
 .tag {
   background-color: $main-color;
   color: $white-color;
-  padding: 5px;
-  margin: 500px 2px;
+  padding: 2px 5px;
+  margin: 5px 2px;
   border-radius: $border-radius;
-}
-
-.remove-tag {
-  margin: 100px;
+  display: inline-block;
 }
 
 .tag button {
@@ -24,6 +21,10 @@
 }
 
 .tagsInput {
+  display: block !important;
+}
+
+.tagsInput input {
   width: 100%;
 }
 
@@ -31,12 +32,9 @@
   margin: 10px;
 }
 
-.selected > {
-  margin: 100px;
-}
-
 .suggestedTag {
   background-color: $main-color;
   color: $white-color;
   border-radius: $border-radius;
+  margin: 3px 0;
 }

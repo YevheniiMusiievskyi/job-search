@@ -2,9 +2,9 @@ package com.kpi.job_search.users;
 
 import com.kpi.job_search.auth.TokenService;
 import com.kpi.job_search.auth.model.AuthUser;
+import com.kpi.job_search.exceptions.NotFoundException;
 import com.kpi.job_search.image.dto.ImageDto;
 import com.kpi.job_search.image.model.Image;
-import com.kpi.job_search.user_profile.UserProfileService;
 import com.kpi.job_search.users.dto.UserDetailsDto;
 import com.kpi.job_search.users.model.User;
 import lombok.RequiredArgsConstructor;
@@ -40,11 +40,15 @@ public class UsersService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(email));
     }
 
-    public UserDetailsDto getUserById(UUID id) {
+    public UserDetailsDto getUserDetailsById(UUID id) {
         return usersRepository
                 .findById(id)
                 .map(userMapper::userToUserDetailsDto)
                 .orElseThrow(() -> new UsernameNotFoundException("No user found with username"));
+    }
+
+    public User getUserById(UUID id) {
+        return usersRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
     public User getCurrentUser() {

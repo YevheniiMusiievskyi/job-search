@@ -29,9 +29,8 @@ public class UserProfileController {
     }
 
     @PostMapping("/profile")
-    public UserProfileDto createUserProfile(@RequestBody ProfileDto profileDto) {
-//        return userProfileService.createUserProfile(profileDto);
-        return null;
+    public void createUserProfile() {
+        userProfileService.createUserProfile();
     }
 
     @PutMapping("/profile")

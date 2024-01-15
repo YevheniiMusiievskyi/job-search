@@ -9,6 +9,7 @@ import {VacancyShort} from "../../components/VacancyShort";
 import styles from "./styles.module.scss"
 import {NavLink} from "react-router-dom";
 import {links} from "../../helpers/links";
+import {isRecruiter} from "../../helpers/tokenParser";
 
 const vacanciesFilter = {
     page: 0,
@@ -24,9 +25,11 @@ const Vacancies: React.FC<VacanciesProps> = ({vacancies, hasMoreVacancies, loadV
 
     return (
         <div>
+            {isRecruiter() &&
             <NavLink to={links.createVacancy}>
                 <Button className={styles.createNewVacancy} primary floated="right">Create vacancy</Button>
             </NavLink>
+            }
             <InfiniteScroll loadMore={getMoreVacancies} hasMore={hasMoreVacancies}
                             loader={<Loader active inline="centered" key={0}/>}>
                 {

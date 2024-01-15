@@ -8,7 +8,7 @@ import {ISkill, ITag} from "../../models/skills";
 import {getOrEmpty} from "../../helpers/utils";
 
 interface IProfileProps {
-    profile: IProfile | null;
+    profile: IProfile | null | undefined;
     existingSkills: ISkill[];
 
     updateProfile(userProfile: IUserProfilePostRequest): void;

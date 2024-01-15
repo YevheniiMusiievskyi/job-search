@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 public class CommentService {
 
     private final CommentRepository commentRepository;
-    private final User currentUser;
 
     public List<CommentDetailsDto> getCommentsList(UUID postId, Integer page, Integer size) {
         var pageable = PageRequest.of(page, size);
@@ -39,10 +38,7 @@ public class CommentService {
         var comment = CommentMapper.MAPPER.commentSaveDtoToModel(commentDto);
         var savedComment = commentRepository.save(comment);
 
-        var commentDetails = CommentMapper.MAPPER.commentToCommentDetailsDto(savedComment);
-        commentDetails.getUser().setUsername(currentUser.getUsername());
-
-        return commentDetails;
+        return CommentMapper.MAPPER.commentToCommentDetailsDto(savedComment);
     }
 
     public void softDeleteCommentById(UUID id) {

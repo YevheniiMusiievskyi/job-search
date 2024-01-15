@@ -34,7 +34,7 @@ const Comment: React.FC<ICommentProps> =
                 <CommentUI.Avatar src={getUserImgLink(user.avatar)}/>
                 <CommentUI.Content>
                     <CommentUI.Author as="a">
-                        {user.username}
+                        {user.fullName}
                     </CommentUI.Author>
                     <CommentUI.Metadata>
                         {moment(createdAt)

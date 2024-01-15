@@ -7,6 +7,7 @@ import com.kpi.job_search.vacancies.dto.VacancyCreationDto;
 import com.kpi.job_search.vacancies.dto.VacancyDto;
 import com.kpi.job_search.vacancies.dto.VacancyShortDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +43,11 @@ public class VacancyController {
     @PutMapping("/{vacancyId}")
     public void update(@PathVariable UUID vacancyId, @RequestBody VacancyCreationDto vacancyCreationDto) {
         vacancyService.update(vacancyId, vacancyCreationDto);
+    }
+
+    @DeleteMapping("/{vacancyId}")
+    public void delete(@PathVariable UUID vacancyId) {
+        vacancyService.delete(vacancyId);
     }
 
     @PostMapping("/apply/{vacancyId}")

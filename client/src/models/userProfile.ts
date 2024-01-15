@@ -14,7 +14,13 @@ export interface IProfile {
 }
 
 export interface IContacts {
-    // avatar: string | null;
+    avatar: string | null;
+    fullName: string | null;
+    email: string | null;
+    phone: string | null;
+}
+
+export interface IContactsPutRequest {
     fullName: string | null;
     email: string | null;
     phone: string | null;

@@ -1,6 +1,7 @@
 package com.kpi.job_search.users.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,15 +20,13 @@ import javax.persistence.*;
 @Table(name = "users")
 @NoArgsConstructor
 public class User extends BaseEntity {
-    @Column(name = "email", unique=true)
+    @Column(name = "email", nullable = false, unique=true)
     private String email;
 
-    @Column(name = "username")
-    private String username;
-
+    @Column(nullable = false)
     private String fullName;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @ElementCollection(targetClass = UserRole.class)
@@ -44,10 +43,10 @@ public class User extends BaseEntity {
     private Image avatar;
 
     @ManyToMany(mappedBy = "candidates")
-    private List<Vacancy> appliedVacancies = new ArrayList<>();
+    private List<Vacancy> appliedVacancies = Collections.emptyList();
 
     @OneToMany(mappedBy = "recruiter")
-    private List<Vacancy> createdVacancies = new ArrayList<>();
+    private List<Vacancy> createdVacancies = Collections.emptyList();
 
     public User(UUID id) {
         super(id);

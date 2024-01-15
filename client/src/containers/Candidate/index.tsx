@@ -14,8 +14,6 @@ interface UrlParams {
 }
 
 const Candidate: React.FC<CandidateProps & RouteComponentProps<UrlParams>> = ({candidate, loadCandidate, match}) => {
-    const contextRef = createRef<any>()
-
     useEffect(() => {
         loadCandidate(match.params.userId)
     }, [match.params.userId])
@@ -23,17 +21,18 @@ const Candidate: React.FC<CandidateProps & RouteComponentProps<UrlParams>> = ({c
     return (
         <div>
             <Card className={styles.candidate}>
-                <Card.Content>
-                    <Card.Header>
-                        <HeaderUI>
-                            <Image circular src={getUserImgLink(null)}/>
-                            {' '}
-                            {candidate?.contacts?.fullName}
-                        </HeaderUI>
-                    </Card.Header>
-                </Card.Content>
+                {candidate?.contacts &&
+                    <Card.Content>
+                        <Card.Header>
+                            <HeaderUI>
+                                <Image circular src={getUserImgLink(candidate?.contacts?.avatar)}/>
+                                {' '}
+                                {candidate?.contacts?.fullName}
+                            </HeaderUI>
+                        </Card.Header>
+                    </Card.Content>}
                 <Card.Content header={candidate?.profile?.title}/>
-                <Card.Content description={candidate?.profile?.description}/>
+                <Card.Content className={styles.description}  description={candidate?.profile?.description}/>
                 <Card.Content>
                     <SkillsView skills={candidate?.profile?.skills}/>
                 </Card.Content>
@@ -44,8 +43,8 @@ const Candidate: React.FC<CandidateProps & RouteComponentProps<UrlParams>> = ({c
                             <Card.Content header="Contacts"/>
                             <Card.Content>
                                 <List>
-                                    <ContactItem icon="mail" content={candidate.contacts.email} />
-                                    <ContactItem icon="call" content={candidate.contacts.phone} />
+                                    <ContactItem icon="mail" content={candidate.contacts.email}/>
+                                    <ContactItem icon="call" content={candidate.contacts.phone}/>
                                 </List>
                             </Card.Content>
                         </Card>

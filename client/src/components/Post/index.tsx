@@ -55,7 +55,7 @@ const Post: React.FC<IPostProps> = (
                         <Feed.Content>
                             <Feed.Summary>
                                 <Link className={styles.user} to={`/user/${user.id}`}>
-                                    {user?.username}
+                                    {user?.fullName}
                                 </Link>
                             </Feed.Summary>
                             <Feed.Date className={styles.date}>

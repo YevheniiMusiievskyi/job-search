@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {IContacts} from "../../models/userProfile";
+import {IContacts, IContactsPutRequest} from "../../models/userProfile";
 import UserProfileInput from "../UserProfileInput";
 import {Button, Grid, Image, Input} from "semantic-ui-react";
 import {getUserImgLink} from "../../helpers/imageHelper";
@@ -7,10 +7,10 @@ import AvatarUploader from "../AvatarUploader";
 import {getOrEmpty} from "../../helpers/utils";
 
 interface IContactsProps {
-    contacts: IContacts | null,
+    contacts: IContacts | null | undefined,
     avatar: string | null,
     uploadAvatar(file: File): void
-    updateContacts(contacts: IContacts): void
+    updateContacts(contacts: IContactsPutRequest): void
 }
 
 const Contacts: React.FC<IContactsProps> = ({ contacts, avatar, uploadAvatar, updateContacts }) => {

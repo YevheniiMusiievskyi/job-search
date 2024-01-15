@@ -11,6 +11,8 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface UserProfileRepository extends JpaRepository<UserProfile, UUID> {
 
+    List<UserProfile> findAllByOrderByUpdatedAtDesc(Pageable pageable);
+
     Optional<UserProfile> findByUserId(UUID userId);
 
     @Query("""

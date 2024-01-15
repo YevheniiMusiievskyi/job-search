@@ -1,4 +1,4 @@
-import {Button, Form} from "semantic-ui-react";
+import {Button, Form, Grid} from "semantic-ui-react";
 import {createVacancy} from "../../store/actions/vacancies";
 import {connect, ConnectedProps} from "react-redux";
 import React, {useState} from "react";
@@ -28,7 +28,11 @@ const VacancyCreation: React.FC<VacancyCreationProps> = () => {
                         onChange={e => setTitle(e.target.value)}/>
             <Form.TextArea label='Description' placeholder='Description' value={description}
                            onChange={e => setDescription(e.target.value)}/>
-            <Button onClick={saveVacancy} primary>Save</Button>
+            <Grid>
+                <Grid.Column textAlign="center">
+                    <Button onClick={saveVacancy} primary>Save</Button>
+                </Grid.Column>
+            </Grid>
         </Form>
     )
 }
